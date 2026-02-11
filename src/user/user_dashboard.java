@@ -22,19 +22,23 @@ import main.login;
  */
 public class user_dashboard extends javax.swing.JFrame {
 
-    private Color defaultColor;
-    private Color hoverColor;
-    private Object config;
-    private Object db;
-
+   private Color defaultColor = new Color(44,62,80);
+    private Color hoverColor = new Color(52,73,94);
+    private config db = new config(); // Gi-fix gikan sa Object ngadto sa config
+    public String name;
     /**
      * Creates new form user_dashboard
      */
-    public user_dashboard() {
+    public user_dashboard(String loginName) {
         initComponents();
+        
     }
 
     public user_dashboard(config.usersession session) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public user_dashboard() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -65,8 +69,8 @@ public class user_dashboard extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        firstName = new javax.swing.JLabel();
         welcometxt = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         mybillstable = new javax.swing.JTable();
         viewreceipt = new javax.swing.JButton();
@@ -213,15 +217,15 @@ public class user_dashboard extends javax.swing.JFrame {
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
 
+        firstName.setBackground(new java.awt.Color(0, 0, 0));
+        firstName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        firstName.setText("Name");
+        jPanel3.add(firstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 60, 20));
+
         welcometxt.setBackground(new java.awt.Color(0, 0, 0));
         welcometxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        welcometxt.setText("Name");
-        jPanel3.add(welcometxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 60, 20));
-
-        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setText("Welcome,");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 90, 20));
+        welcometxt.setText("Welcome,");
+        jPanel3.add(welcometxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 90, 20));
 
         mybillstable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -505,6 +509,7 @@ public class user_dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel billsbtn;
+    private javax.swing.JLabel firstName;
     private javax.swing.JPanel homebtn;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -517,7 +522,6 @@ public class user_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -530,7 +534,7 @@ public class user_dashboard extends javax.swing.JFrame {
     private javax.swing.JButton viewpendingbills;
     private javax.swing.JButton viewreceipt;
     private javax.swing.JButton viewstatementofaccount;
-    private javax.swing.JLabel welcometxt;
+    public javax.swing.JLabel welcometxt;
     // End of variables declaration//GEN-END:variables
 
     private void loadUserBills() {

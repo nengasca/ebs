@@ -231,7 +231,7 @@ public class BillsReceipt extends javax.swing.JFrame {
 
     private void printreceiptActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // Use PanelPrinter to print the jPanel1
-        config.PanelPrinter printer = new config.PanelPrinter(jPanel1);
+        config.Print printer = new config.Print(jPanel1);
         printer.printPanel();
     }                                            
 

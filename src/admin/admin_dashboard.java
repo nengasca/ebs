@@ -6,6 +6,7 @@
 package admin;
 
 import Bills.Bills;
+import config.config;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,23 +17,40 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import main.login;
 import payment.Payment;
-
+import admin.Setting; 
+import payment.Payment;
 /**
  *
  * @author Administrator
  */
 public class admin_dashboard extends javax.swing.JFrame {
-
+     config db = new config();
     private Color hoverColor;
     private Color defaultColor;
-
+    public String name;
     /**
      * Creates new form admin_dashboard
      */
-    public admin_dashboard() {
-        initComponents();
-    }
+   public admin_dashboard(String loginName) {
+    initComponents();
+    this.name = loginName;
+  // I-set ang text sa label. 
+    // Kung gusto nimo nga ang 'welcometxt' label mismo ang naay name:
+    welcometxt.setText("Welcome, " + loginName + "!");
+    
+    // O kung ang 'fName' label imong gamiton:
+    fName.setText(loginName + "!");
+    
+    // I-define ang colors
+    hoverColor = new Color(52, 73, 94);
+    defaultColor = new Color(44, 62, 80);
+    populateUserTable();
+}
 
+    admin_dashboard() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,8 +83,8 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         usertable = new javax.swing.JTable();
-        jLabel9 = new javax.swing.JLabel();
         welcometxt = new javax.swing.JLabel();
+        fName = new javax.swing.JLabel();
         welcometxt1 = new javax.swing.JLabel();
         searchfield = new javax.swing.JTextField();
         searchbtn = new javax.swing.JButton();
@@ -134,6 +152,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Users");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         userbtn.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
         userbtn.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
@@ -182,6 +205,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Payments");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
         paymentbtn.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
         paymentbtn.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
@@ -206,6 +234,11 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Settings");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
         settingsbtn.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
         settingsbtn.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
@@ -249,15 +282,15 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 490, 380));
 
-        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setText("Welcome,");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 90, 20));
-
         welcometxt.setBackground(new java.awt.Color(0, 0, 0));
         welcometxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        welcometxt.setText("Admin!");
-        jPanel3.add(welcometxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 80, 20));
+        welcometxt.setText("Welcome,");
+        jPanel3.add(welcometxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 100, 20));
+
+        fName.setBackground(new java.awt.Color(0, 0, 0));
+        fName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        fName.setText("Admin!");
+        jPanel3.add(fName, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, 80, 20));
 
         welcometxt1.setBackground(new java.awt.Color(0, 0, 0));
         welcometxt1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -469,33 +502,28 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_searchbtnActionPerformed
 
     private void activateuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activateuserActionPerformed
-        // Activate selected user by updating status to 'Active' and refresh table
-        int selectedRow = usertable.getSelectedRow();
-        if (selectedRow == -1) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Please select a user to activate.");
-            return;
-        }
-        int userId = (int) usertable.getValueAt(selectedRow, 0); // Assuming id is in column 0
-        String query = "UPDATE users SET status = 'Active' WHERE id = ?";
-        Connection con = db.getConnection();
-        PreparedStatement pst = null;
-        try {
-            pst = con.prepareStatement(query);
-        } catch (SQLException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            pst.setInt(1, userId);
-        } catch (SQLException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            pst.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(admin_dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        javax.swing.JOptionPane.showMessageDialog(this, "User activated successfully.");
+                                                
+    int selectedRow = usertable.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a user to activate.");
+        return;
+    }
+    
+    int userId = Integer.parseInt(usertable.getValueAt(selectedRow, 0).toString());
+    String query = "UPDATE users SET u_status = 'Active' WHERE u_id = ?"; // Siguroa ang column name (u_status ug u_id)
+    
+    try (Connection con = db.connectDB()) {
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.setInt(1, userId);
+        pst.executeUpdate();
+        
+        JOptionPane.showMessageDialog(this, "User activated successfully.");
         populateUserTable();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+    }
+
+      
     }//GEN-LAST:event_activateuserActionPerformed
 
     private void adduserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adduserActionPerformed
@@ -503,86 +531,100 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_adduserActionPerformed
 
     private void edituserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edituserActionPerformed
-        int selectedRow = usertable.getSelectedRow();
-        if (selectedRow == -1) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Please select a user to edit.");
-            return;
-        }
-        int userId = (int) usertable.getValueAt(selectedRow, 0); // Assuming id is in column 0
-        Edituser editUserForm = new Edituser();
-        editUserForm.loadUser(userId);
-        editUserForm.setVisible(true);
+                                           
+    int selectedRow = usertable.getSelectedRow();
+    
+    if (selectedRow == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Palihog pili og user sa table.");
+        return;
+    }
+    
+    // Kuhaon ang ID sa selected user (Column 0)
+    int userId = Integer.parseInt(usertable.getValueAt(selectedRow, 0).toString()); 
+    
+    // Ablihan ang Edituser form ug i-load ang data
+    Edituser editForm = new Edituser();
+    editForm.loadUser(userId); // Siguroa nga na-fix na nimo ang loadUser sa Edituser.java
+    editForm.setVisible(true);
+
     }//GEN-LAST:event_edituserActionPerformed
 
     private void deleteuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteuserActionPerformed
-        // Delete selected user from database and refresh table
-        int selectedRow = usertable.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a user to delete.");
-            return;
-        }
-        try {
-            int userId = (int) usertable.getValueAt(selectedRow, 0); // Assuming id is in column 0
-            String query = "DELETE FROM users WHERE id = ?";
-            java.sql.Connection con = db.getConnection();
-            java.sql.PreparedStatement pst = con.prepareStatement(query);
+                                             
+                                            
+    int selectedRow = usertable.getSelectedRow();
+    
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Palihog pili og user nga i-delete.");
+        return;
+    }
+
+    int confirm = JOptionPane.showConfirmDialog(this, 
+            "Sigurado ka nga gusto nimo i-delete kini nga account?", 
+            "Confirm Delete", JOptionPane.YES_NO_OPTION);
+    
+    if (confirm == JOptionPane.YES_OPTION) {
+        // Gamita ang try-with-resources para automatic ma-close ang connection
+        try (Connection con = db.connectDB()) { // Gamita ang connectDB() kay mao ni ang nag-exist sa imong config
+            int userId = Integer.parseInt(usertable.getValueAt(selectedRow, 0).toString());
+            String query = "DELETE FROM users WHERE u_id = ?";
+            PreparedStatement pst = con.prepareStatement(query);
             pst.setInt(1, userId);
-            int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm Delete", javax.swing.JOptionPane.YES_NO_OPTION);
-            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
-                pst.executeUpdate();
-                JOptionPane.showMessageDialog(this, "User deleted successfully.");
-                populateUserTable();
-            }
-        } catch (java.sql.SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error deleting user: " + e.getMessage());
+            
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(this, "User deleted successfully.");
+            populateUserTable(); // Refresh ang table
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error sa pag-delete: " + e.getMessage());
         }
+    }
+
+
     }//GEN-LAST:event_deleteuserActionPerformed
 
     private void searchfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchfieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchfieldActionPerformed
 
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+       
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    admin.Setting st = new admin.Setting(); 
+    st.setVisible(true);
+    this.dispose();
+
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+       payment.Payment py = new payment.Payment();
+    py.setVisible(true);
+    this.dispose();
+
+    }//GEN-LAST:event_jLabel5MouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(admin_dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(admin_dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(admin_dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(admin_dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+ 
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new admin_dashboard().setVisible(true);
-            }
-        });
+// I-DELETE NA KINI NGA BAHIN SA IMONG CODE:
+/* private static class db {
+    private static Connection getConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
-
+}
+*/
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton activateuser;
     private javax.swing.JButton adduser;
     private javax.swing.JPanel billsbtn;
     private javax.swing.JButton deleteuser;
     private javax.swing.JButton edituser;
+    private javax.swing.JLabel fName;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -596,7 +638,6 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -608,25 +649,33 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel settingsbtn;
     private javax.swing.JPanel userbtn;
     private javax.swing.JTable usertable;
-    private javax.swing.JLabel welcometxt;
+    public javax.swing.JLabel welcometxt;
     private javax.swing.JLabel welcometxt1;
     // End of variables declaration//GEN-END:variables
 
-    private void populateUserTable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // 1. Limpyo nga logAction (USA RA DAPAT NI)
+    private void logAction(String action) {
+        System.out.println("Log: " + action);
     }
 
-    private void logAction(String admin_Logged_Out) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private static class db {
-
-        private static Connection getConnection() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public db() {
-        }
+    // 2. Limpyo nga populateUserTable (DILI DAPAT NI NAY THROW)
+   private void populateUserTable() {
+    try {
+        // Ang query mokuha sa tanang columns sa users table
+        String query = "SELECT u_id, u_firstname, u_lastname, u_username, u_role, u_status FROM users";
+        
+        // Gamita ang 'db' nga object (imong config)
+        java.sql.ResultSet rs = db.getData(query);
+        
+        // I-display sa table gamit ang rs2xml (DbUtils)
+        usertable.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
+        
+    } catch (java.sql.SQLException e) {
+        System.out.println("Error Loading Table: " + e.getMessage());
     }
 }
+
+    // Siguroa nga ang katapusan sa imong file kay ang Variables Declaration ra
+    // Ayaw na pagbutang og "private static class db" sa ubos
+}
+

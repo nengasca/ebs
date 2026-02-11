@@ -62,16 +62,17 @@ public class landing extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
-      login log = new login();
-    log.setVisible(true);
-    this.dispose(); // Mas maayo i-close ang landing page human ma pislit
-
+      register reg = new register();
+    reg.setVisible(true);
+    this.dispose();
+       
     }//GEN-LAST:event_registerActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-    register reg = new register();
-    reg.setVisible(true);
-    this.dispose();
+     login log = new login();
+    log.setVisible(true);
+    this.dispose(); // Mas maayo i-close ang landing page human ma pislit
+
 
     }//GEN-LAST:event_loginActionPerformed
 

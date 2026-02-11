@@ -8,7 +8,8 @@ package main;
 import config.config;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-
+import admin.admin_dashboard;
+import  user.user_dashboard;
 /**
  *
  * @author Administrator
@@ -117,66 +118,66 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_registerBtnMouseClicked
 
     private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
-        String username = UserField.getText().trim();
-        String password = new String(PasswordField.getPassword()).trim();
+                                            
+    String user = UserField.getText().trim();
+    String pass = new String(PasswordField.getPassword()).trim();
 
-        if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter both username and password.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    // 1. Check kung empty ba ang fields
+    if (user.isEmpty() || pass.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Palihog puy-i ang tanan!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        config db = new config();
-        try {
-            int userId = 0;
-            // Escape single quotes in username to prevent SQL errors
-            String safeUsername = username.replace("'", "''");
-            // Hash the password before checking
-            String hashedPassword = config.hashPassword(password);
-            String safePassword = hashedPassword.replace("'", "''");
-            String sql = "SELECT * FROM users WHERE username = '" + safeUsername + "' AND password = '" + safePassword + "'";
-            ResultSet rs = db.getData(sql);
+    config db = new config();
 
-            if (rs.next()) {
-                String status = rs.getString("status");
-                String role = rs.getString("role");
-                username = rs.getString("username");
-                userId = rs.getInt("id");
-                if (status != null && status.equalsIgnoreCase("Pending")) {
-                    JOptionPane.showMessageDialog(this, "Your account is pending approval.", "Login Denied", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Login successful!", "Welcome", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                    config.usersession session = config.usersession.getInstance();
-                    session.setId(userId);
-                    session.setUsername(username);
-                    session.setFirstname(rs.getString("firstname"));
-                    session.setLastname(rs.getString("lastname"));
-                    session.setEmail(rs.getString("email"));
-                    session.setAddress(rs.getString("address"));
-                    session.setStatus(rs.getString("status"));
-                    session.setRole(role);
-                    session.setImage(rs.getString("image"));
-                    session.setAccNum(rs.getString("account_number")); // Set account number in session
-                    session.setLoggedIn(true);
+    try {
+        // 2. Query para i-check ang credentials
+        String query = "SELECT * FROM users WHERE u_username = '" + user + "' AND u_password = '" + pass + "'";
+        java.sql.ResultSet rs = db.getData(query);
 
-                    if (role.equalsIgnoreCase("user")) {
-                        new user.user_dashboard(session).setVisible(true);
-                        admin.ActionLogger.logAction(userId, "User logged in");
-                    } else if (role.equalsIgnoreCase("admin")) {
-                        new admin.admin_dashboard().setVisible(true);
-                        admin.ActionLogger.logAction(userId, "Admin logged in");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Unknown user role.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+        if (rs.next()) {
+            // Kuhaon ang data gikan sa database columns
+            String status = rs.getString("u_status");
+            String role = rs.getString("u_role");
+            String fNameFromDB = rs.getString("u_firstname"); // Mao ni ang tinuod nga ngalan
+
+            // 3. Check kung Active ba ang account
+            if (status.equalsIgnoreCase("Active")) {
+                
+                if (role.equalsIgnoreCase("Admin")) {
+                    JOptionPane.showMessageDialog(this, "Login Successful! Welcome Admin " + fNameFromDB);
+                    
+                    // I-pasa ang fNameFromDB ngadto sa admin_dashboard constructor
+                    admin.admin_dashboard ads = new admin.admin_dashboard(fNameFromDB);
+                    ads.setVisible(true);
+                    this.dispose(); 
+                } 
+                else if (role.equalsIgnoreCase("User")) {
+                    JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + fNameFromDB);
+                    
+                    // I-pasa ang fNameFromDB ngadto sa user_dashboard constructor
+                    user.user_dashboard usd = new user.user_dashboard(fNameFromDB);
+                    usd.setVisible(true);
+                    this.dispose(); 
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            } 
+            else {
+                // Kung 'Pending' o 'Inactive' ang status
+                JOptionPane.showMessageDialog(this, "Ang imong account kay " + status + ". Kontaka ang Admin.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            rs.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error during login: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Kung mali ang username o password
+            JOptionPane.showMessageDialog(this, "Sayop ang Username o Password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
         }
+        rs.close(); 
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
+    }
+
+
+         
+  
+        
     }//GEN-LAST:event_loginbtnActionPerformed
 
     /**

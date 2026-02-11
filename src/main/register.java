@@ -193,7 +193,38 @@ public class register extends javax.swing.JFrame {
     }//GEN-LAST:event_loginbtnMouseClicked
 
     private void registerbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbtnActionPerformed
-      
+                                                                                          
+        String fname = firstnamefield.getText();
+        String lname = lastnamefield.getText();
+        String address = addressfield.getText();
+        String email = emailfield.getText();
+        String user = usernamefield1.getText();
+        String pass = new String(passwordfield.getPassword());
+        String role = rolecombobox.getSelectedItem().toString();
+        String accountNum = accnumber.getText();
+        
+        if(fname.isEmpty() || user.isEmpty() || pass.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Fields should not be empty!");
+            return;
+        }
+
+        config db = new config();
+        
+        // MAO NI ANG SAKTONG COLUMN NAMES BASE SA IMONG EBS.DB
+        String sql = "INSERT INTO users (u_fname, u_lname, u_email, u_username, u_password, u_role, u_adderss, u_accnum, u_status) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        // Siguroa nga ang order sa values parehas sa SQL columns sa taas
+        db.addRecord(sql, fname, lname, email, user, pass, role, address, accountNum, "Pending");
+        
+        javax.swing.JOptionPane.showMessageDialog(this, "Registered Successfully! Wait for Admin Approval.");
+        
+        new login().setVisible(true);
+        this.dispose();
+    
+                                         
+     
+          
     }//GEN-LAST:event_registerbtnActionPerformed
 
     private void rolecomboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rolecomboboxActionPerformed

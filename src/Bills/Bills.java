@@ -5,9 +5,16 @@
  */
 package Bills;
 
+import admin.Logs;
+import admin.Setting;
 import admin.admin_dashboard;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import main.login;
+import payment.Payment;
 
 /**
  *
@@ -359,7 +366,7 @@ public class Bills extends javax.swing.JFrame {
     }//GEN-LAST:event_paymentbtnMouseExited
 
     private void settingsbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsbtnMouseClicked
-        new SettingsAdmin().setVisible(true);
+        new Setting().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_settingsbtnMouseClicked
 

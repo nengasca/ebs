@@ -194,58 +194,58 @@ public class AddUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void adduserbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adduserbtnActionPerformed
-        // Add user with validation
-        String firstName = firstnamefield.getText().trim();
-        String lastName = lastnamefield.getText().trim();
-        String email = emailfield.getText().trim();
-        String username = usernamefield.getText().trim();
-        String password = new String(passwordfield.getPassword());
-        String role = (String) rolecombobox.getSelectedItem();
-        String address = addressfield.getText().trim();
+                                        
+    // 1. Kuhaon ang data gikan sa imong mga TextFields/ComboBox
+    String firstName = firstnamefield.getText().trim();
+    String lastName = lastnamefield.getText().trim();
+    String email = emailfield.getText().trim();
+    String username = usernamefield.getText().trim();
+    String password = new String(passwordfield.getPassword());
+    String role = (String) rolecombobox.getSelectedItem();
+    String address = addressfield.getText().trim();
 
-        // Basic validation
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || role.equals("Select Role")) {
-            JOptionPane.showMessageDialog(this, "Please fill in all fields and select a role.");
-            return;
-        }
+    // 2. Validation (Dili dapat bakante)
+    if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || 
+        username.isEmpty() || password.isEmpty() || role.equals("Select Role")) {
+        JOptionPane.showMessageDialog(this, "Palihog fill-up sa tanang fields.");
+        return;
+    }
 
-        // Email format validation (simple regex)
-        if (!email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid email address.");
-            return;
-        }
+    // 3. Email format validation
+    if (!email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) {
+        JOptionPane.showMessageDialog(this, "Invalid email format!");
+        return;
+    }
 
-        // Password length validation
-        if (password.length() < 6) {
-            JOptionPane.showMessageDialog(this, "Password must be at least 6 characters long.");
-            return;
-        }
+    // 4. Database Insert
+    try {
+        config conf = new config();
+        java.sql.Connection con = conf.connectDB(); // Gamiton imong connectDB gikan sa config
 
-        try {
-            // Hash the password before storing
-            String hashedPassword = config.hashPassword(password);
+        // Query: Siguroa nga sakto ang column names sa imong MySQL table (u_firstname, etc.)
+        String query = "INSERT INTO users (u_firstname, u_lastname, u_address, u_email, u_username, u_password, u_role, u_status) "
+                     + "VALUES (?, ?, ?, ?, ?, ?, ?, 'Pending')";
 
-            // Insert user into database
-            String query = "INSERT INTO users (firstname, lastname,address, email, username, password, role, status,recovery_phrase) VALUES (?, ?, ?, ?, ?, ?, ?, 'Pending', ?)";
-            java.sql.Connection con = new config.getConnection();
-            java.sql.PreparedStatement pst = con.prepareStatement(query);
-            pst.setString(1, firstName);
-            pst.setString(2, lastName);
-            pst.setString(3, address);
-            pst.setString(4, email);
-            pst.setString(5, username);
-            pst.setString(6, hashedPassword);
-            pst.setString(7, role);
-            pst.executeUpdate();
+        java.sql.PreparedStatement pst = con.prepareStatement(query);
+        pst.setString(1, firstName);
+        pst.setString(2, lastName);
+        pst.setString(3, address);
+        pst.setString(4, email);
+        pst.setString(5, username);
+        pst.setString(6, password); 
+        pst.setString(7, role);
 
-            JOptionPane.showMessageDialog(this, "User added successfully.");
-            // Log the successful addition action
-            int currentUserId = config.usersession.getInstance().getId();
-            admin.ActionLogger.logAction(currentUserId, "Added new user: " + username);
-            this.dispose(); // Close the add user form after successful addition
-        } catch (java.sql.SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error adding user: " + e.getMessage());
-        }
+        pst.executeUpdate();
+
+        JOptionPane.showMessageDialog(this, "User added successfully!");
+
+        // 5. I-close ang Add Form
+        this.dispose();
+
+    } catch (java.sql.SQLException e) {
+        JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
+    }
+
     }//GEN-LAST:event_adduserbtnActionPerformed
 
     private void firstnamefieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstnamefieldActionPerformed

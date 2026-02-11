@@ -9,6 +9,7 @@ import config.config;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
@@ -338,6 +339,10 @@ public class AddBills extends javax.swing.JFrame {
         }
 
         private PreparedStatement prepareStatement(String userIdQuery) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        private void close() {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     }

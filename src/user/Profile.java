@@ -5,11 +5,22 @@
  */
 package user;
 
+import java.awt.Color;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import main.login;
+
 /**
  *
  * @author Administrator
  */
 public class Profile extends javax.swing.JFrame {
+
+    private Color hoverColor;
+    private Color defaultColor;
 
     /**
      * Creates new form Profile
@@ -345,7 +356,7 @@ public class Profile extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutbtnMouseClicked
-        new Login().setVisible(true);
+        new login().setVisible(true);
         this.dispose();
         logAction("User logged out");
     }//GEN-LAST:event_logoutbtnMouseClicked
@@ -359,7 +370,7 @@ public class Profile extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutbtnMouseExited
 
     private void homebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homebtnMouseClicked
-        new UserDashboard().setVisible(true);
+        new user_dashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_homebtnMouseClicked
 
@@ -430,7 +441,7 @@ public class Profile extends javax.swing.JFrame {
 
             // Update database to remove image path
             String sql = "UPDATE users SET image = NULL WHERE id = ?";
-            try (Connection conn = config.connectDB.getConnection();
+            try (Connection conn = config.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, session.getId());
                 pstmt.executeUpdate();
@@ -569,4 +580,12 @@ public class Profile extends javax.swing.JFrame {
     private javax.swing.JPanel settingsbtn;
     private javax.swing.JLabel statuslabe;
     // End of variables declaration//GEN-END:variables
+
+    private void logAction(String user_logged_out) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void updateUserImagePath(int id, String destination) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

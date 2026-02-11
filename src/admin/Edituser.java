@@ -185,7 +185,8 @@ public class Edituser extends javax.swing.JFrame {
 
             // Update user in the database (excluding username and password)
             String query = "UPDATE users SET firstname = ?, lastname = ?, email = ?, role = ? WHERE id = ?";
-            java.sql.Connection conn = new config.getConnection();
+           // Ilisdi ang error nga line niini:
+            java.sql.Connection conn = config.config.connectDB();
             java.sql.PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, firstName);
             pst.setString(2, lastName);

@@ -22,6 +22,8 @@ import payment.Payment;
  * @author Administrator
  */
 public class Setting extends javax.swing.JFrame {
+     config db = new config(); 
+    // ...
 
     private Color hoverColor;
     private Color defaultColor;
@@ -29,9 +31,12 @@ public class Setting extends javax.swing.JFrame {
     /**
      * Creates new form Setting
      */
-    public Setting() {
-        initComponents();
-    }
+   public Setting() {
+    initComponents();
+    // I-set ang color values para dili mo error ang MouseHover
+    hoverColor = new Color(52, 73, 94);   // Darker gray-blue
+    defaultColor = new Color(44, 62, 80); // Original sidebar color
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -364,7 +369,7 @@ public class Setting extends javax.swing.JFrame {
             usersession session = usersession.getInstance();
 
             // Query current password hash from database
-            Connection conn = config.getConnection();
+           Connection conn = db.connectDB();
             String selectQuery = "SELECT password FROM users WHERE id = ?";
             PreparedStatement selectPst = conn.prepareStatement(selectQuery);
             selectPst.setInt(1, session.getId());
@@ -415,10 +420,11 @@ public class Setting extends javax.swing.JFrame {
     }//GEN-LAST:event_changepassbtnActionPerformed
 
     private void logoutbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutbtnMouseClicked
-        new login().setVisible(true);
-        this.dispose();
-        logAction("Admin Logged Out.");
-        this.dispose();
+     new login().setVisible(true);
+    this.dispose(); 
+    // I-comment lang usa ni kung mo error ang logAction
+    // logAction("Admin Logged Out."); 
+
     }//GEN-LAST:event_logoutbtnMouseClicked
 
     private void logoutbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutbtnMouseEntered
@@ -430,8 +436,14 @@ public class Setting extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutbtnMouseExited
 
     private void userbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userbtnMouseClicked
-        new admin_dashboard().setVisible(true);
-        this.dispose();
+   String currentName = config.getName(); 
+
+    // I-pasa ang name sa dashboard
+    // Siguroa nga ang admin_dashboard sa admin package nagdawat og String
+    new admin.admin_dashboard(currentName).setVisible(true);
+    this.dispose();
+
+
     }//GEN-LAST:event_userbtnMouseClicked
 
     private void userbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userbtnMouseEntered
@@ -498,35 +510,47 @@ public class Setting extends javax.swing.JFrame {
     }//GEN-LAST:event_changerateMouseClicked
 
     private void changerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changerateActionPerformed
-        String newRateStr = changeratefield.getText().trim();
-        if (newRateStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a new rate.", "Input Error", JOptionPane.ERROR_MESSAGE);
+     String newRateStr = changeratefield.getText().trim();
+    if (newRateStr.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter a new rate.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    try {
+        double newRate = Double.parseDouble(newRateStr);
+        if (newRate <= 0) {
+            JOptionPane.showMessageDialog(this, "Rate must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        try {
-            double newRate = Double.parseDouble(newRateStr);
-            if (newRate <= 0) {
-                JOptionPane.showMessageDialog(this, "Rate must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            Connection con = config.getConnection();
-            String updateQuery = "UPDATE tbl_bill SET rate_perkWh = ?";
-            PreparedStatement pst = con.prepareStatement(updateQuery);
-            pst.setDouble(1, newRate);
-            int rowsUpdated = pst.executeUpdate();
-            pst.close();
-            con.close();
-            if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(this, "Rate updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                changeratefield.setText("");
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to update rate.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid number for rate.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error updating rate: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+        // FIX: Gamita ang 'db' object nga gi-declare na nimo sa taas
+        Connection conn = db.connectDB(); 
+        
+        // FIX: PreparedStatement kinahanglan gikan sa 'conn' object
+        String updateQuery = "UPDATE tbl_bill SET rate_perkWh = ?";
+        PreparedStatement pst = conn.prepareStatement(updateQuery);
+        pst.setDouble(1, newRate);
+        
+        int rowsUpdated = pst.executeUpdate();
+        
+        // FIX: Isira ang resources
+        pst.close();
+        conn.close();
+
+        if (rowsUpdated > 0) {
+            JOptionPane.showMessageDialog(this, "Rate updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            changeratefield.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "No records updated. Check if tbl_bill has data.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid number for rate.", "Input Error", JOptionPane.ERROR_MESSAGE);
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     }//GEN-LAST:event_changerateActionPerformed
 
     /**
