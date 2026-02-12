@@ -9,12 +9,17 @@ import Bills.Bills;
 import admin.Logs;
 import admin.Setting;
 import admin.admin_dashboard;
+import config.config;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import main.login;
+
 
 /**
  *
@@ -70,11 +75,11 @@ public class Payment extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel3.setBackground(new java.awt.Color(244, 246, 249));
+        jPanel3.setBackground(new java.awt.Color(0, 204, 204));
         jPanel3.setPreferredSize(new java.awt.Dimension(900, 600));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(44, 62, 80));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 100));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -82,9 +87,9 @@ public class Payment extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("PowerPay");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 30, 220, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 220, -1));
 
-        logoutbtn.setBackground(new java.awt.Color(44, 62, 80));
+        logoutbtn.setBackground(new java.awt.Color(0, 153, 153));
         logoutbtn.setForeground(new java.awt.Color(44, 62, 80));
         logoutbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -108,7 +113,7 @@ public class Payment extends javax.swing.JFrame {
 
         jPanel1.add(logoutbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, 40));
 
-        userbtn.setBackground(new java.awt.Color(44, 62, 80));
+        userbtn.setBackground(new java.awt.Color(0, 153, 153));
         userbtn.setForeground(new java.awt.Color(44, 62, 80));
         userbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -132,7 +137,7 @@ public class Payment extends javax.swing.JFrame {
 
         jPanel1.add(userbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, 40));
 
-        billsbtn.setBackground(new java.awt.Color(44, 62, 80));
+        billsbtn.setBackground(new java.awt.Color(0, 153, 153));
         billsbtn.setForeground(new java.awt.Color(44, 62, 80));
         billsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -156,7 +161,7 @@ public class Payment extends javax.swing.JFrame {
 
         jPanel1.add(billsbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 40));
 
-        paymentbtn.setBackground(new java.awt.Color(44, 62, 80));
+        paymentbtn.setBackground(new java.awt.Color(0, 153, 153));
         paymentbtn.setForeground(new java.awt.Color(44, 62, 80));
         paymentbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -180,7 +185,7 @@ public class Payment extends javax.swing.JFrame {
 
         jPanel1.add(paymentbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 40));
 
-        settingsbtn.setBackground(new java.awt.Color(44, 62, 80));
+        settingsbtn.setBackground(new java.awt.Color(0, 153, 153));
         settingsbtn.setForeground(new java.awt.Color(44, 62, 80));
         settingsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -204,7 +209,7 @@ public class Payment extends javax.swing.JFrame {
 
         jPanel1.add(settingsbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, 40));
 
-        logsbtn.setBackground(new java.awt.Color(44, 62, 80));
+        logsbtn.setBackground(new java.awt.Color(0, 153, 153));
         logsbtn.setForeground(new java.awt.Color(44, 62, 80));
         logsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -240,16 +245,16 @@ public class Payment extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(paymenttable);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 640, 430));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 450, 300));
 
         welcometxt1.setBackground(new java.awt.Color(0, 0, 0));
-        welcometxt1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        welcometxt1.setFont(new java.awt.Font("Lucida Calligraphy", 1, 24)); // NOI18N
         welcometxt1.setText(" Payment History");
-        jPanel3.add(welcometxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 220, 50));
+        jPanel3.add(welcometxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 260, 50));
 
         searchfield.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
         searchfield.setPreferredSize(new java.awt.Dimension(350, 40));
-        jPanel3.add(searchfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 480, -1));
+        jPanel3.add(searchfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 330, 30));
 
         searchbtn.setBackground(new java.awt.Color(44, 62, 80));
         searchbtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -261,27 +266,17 @@ public class Payment extends javax.swing.JFrame {
                 searchbtnActionPerformed(evt);
             }
         });
-        jPanel3.add(searchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 70, 110, -1));
+        jPanel3.add(searchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 500, Short.MAX_VALUE)
         );
 
         pack();
@@ -304,7 +299,7 @@ public class Payment extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutbtnMouseExited
 
     private void userbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userbtnMouseClicked
-        new admin_dashboard().setVisible(true);
+        new admin_dashboard("Admin").setVisible(true);
         this.dispose();
     }//GEN-LAST:event_userbtnMouseClicked
 
@@ -368,121 +363,38 @@ public class Payment extends javax.swing.JFrame {
     }//GEN-LAST:event_logsbtnMouseExited
 
     private void searchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbtnActionPerformed
-        // Search payments by keyword in all columns and display in paymenttable
-        String searchText = searchfield.getText().trim();
-        if (searchText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter search text.");
-            return;
-        }
-        try {
-            String query = "SELECT " +
-            "p.payment_id, " +
-            "p.bill_id, " +
-            "u.account_number, " +
-            "CONCAT(u.firstname, ' ', u.lastname) AS name, " +
-            "b.bill_month, " +
-            "b.kwh_used, " +
-            "p.amount_paid, " +
-            "p.payment_method, " +
-            "p.payment_date, " +
-            "b.due_date, " +
-            "b.status " +
-            "FROM tbl_payment p " +
-            "JOIN tbl_bill b ON p.bill_id = b.b_id " +
-            "JOIN users u ON b.user_id = u.id " +
-            "WHERE CAST(p.payment_id AS CHAR) LIKE ? OR " +
-            "CAST(p.bill_id AS CHAR) LIKE ? OR " +
-            "u.account_number LIKE ? OR " +
-            "CONCAT(u.firstname, ' ', u.lastname) LIKE ? OR " +
-            "b.bill_month LIKE ? OR " +
-            "CAST(b.kwh_used AS CHAR) LIKE ? OR " +
-            "CAST(p.amount_paid AS CHAR) LIKE ? OR " +
-            "p.payment_method LIKE ? OR " +
-            "CAST(p.payment_date AS CHAR) LIKE ? OR " +
-            "CAST(b.due_date AS CHAR) LIKE ? OR " +
-            "b.status LIKE ? " +
-            "ORDER BY p.payment_date DESC";
+    String oldPassRaw = new String(oldpassword.getPassword()).trim();
+    String newPassRaw = new String(newpassword.getPassword()).trim();
 
-            Connection con = db.getConnection();
-            PreparedStatement pst = con.prepareStatement(query);
-            String likeText = "%" + searchText + "%";
-            for (int i = 1; i <= 11; i++) {
-                pst.setString(i, likeText);
-            }
-            ResultSet rs = pst.executeQuery();
+    if (oldPassRaw.isEmpty() || newPassRaw.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Please fill all fields.");
+        return;
+    }
 
-            javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel(
-                new String[] {
-                    "Payment ID", "Bill ID", "Account Number", "Name", "Bill Month", "kWh Used",
-                    "Amount Paid", "Payment Method", "Payment Date", "Due Date", "Status"
-                }, 0) {
-                    @Override
-                    public boolean isCellEditable(int row, int column) {
-                        return false;
-                    }
-                };
+    try {
+        config conf = new config(); // Gamit ang imong config.java 
+        // Ang query naggamit sa 'users' table base sa imong ebs.db 
+        String sql = "SELECT * FROM users WHERE u_id = ? AND u_password = ?";
+        
+        // Gamita ang imong existing session ID 
+        String currentUserID = config.getID(); 
 
-                while (rs.next()) {
-                    Object[] row = new Object[] {
-                        rs.getInt("payment_id"),
-                        rs.getInt("bill_id"),
-                        rs.getString("account_number"),
-                        rs.getString("name"),
-                        rs.getString("bill_month"),
-                        rs.getInt("kwh_used"),
-                        rs.getDouble("amount_paid"),
-                        rs.getString("payment_method"),
-                        rs.getDate("payment_date"),
-                        rs.getDate("due_date"),
-                        rs.getString("status")
-                    };
-                    model.addRow(row);
-                }
+        // Sumpaya ang imong logic para sa update...
+        
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+    }
 
-                paymenttable.setModel(model);
-
-                rs.close();
-                pst.close();
-                con.close();
-
-            } catch (java.sql.SQLException e) {
-                JOptionPane.showMessageDialog(this, "Error searching payments: " + e.getMessage());
-            }
     }//GEN-LAST:event_searchbtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+           
+            javax.swing.JOptionPane.showMessageDialog(null, "Direct access is forbidden! Please login first.");
+            new login().setVisible(true);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Payment().setVisible(true);
-            }
-        });
+    });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -516,5 +428,27 @@ public class Payment extends javax.swing.JFrame {
 
     private void logAction(String admin_Logged_Out) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static class oldpassword {
+
+        private static String getPassword() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        public oldpassword() {
+        }
+    }
+
+    private static class newpassword {
+
+        private static String getPassword() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+  
+
+        public newpassword() {
+        }
     }
 }

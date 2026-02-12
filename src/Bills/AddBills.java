@@ -5,13 +5,15 @@
  */
 package Bills;
 
-import config.config;
-import java.sql.PreparedStatement;
+import config.config; // Para sa imong database connection
+import java.sql.Connection; // Tinuod nga SQL Connection
+import java.sql.PreparedStatement; // Tinuod nga SQL PreparedStatement
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import javax.swing.JOptionPane;
+import main.login;
 
 /**
  *
@@ -155,167 +157,42 @@ public class AddBills extends javax.swing.JFrame {
     }//GEN-LAST:event_monthcomboboxActionPerformed
 
     private void addbillbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbillbtnActionPerformed
-        // Get input values
-        String accountNum = accountnumber.getText().trim();
-        String kWhText = kWh.getText().trim();
-        String billMonth = (String) monthcombobox.getSelectedItem();
-        String dueDateText = duedate.getText().trim();
-
-        // Validate account number
-        if (accountNum.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter an account number.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
+     try {
+    // Kinahanglan 'config.connectDB()' ra kay static man ang method sa imong config.java
+    Connection conn = config.connectDB(); 
+    
+    if (conn != null) {
+        String userIdQuery = "SELECT u_id FROM users WHERE u_account_number = ?";
+        PreparedStatement pst = conn.prepareStatement(userIdQuery);
+        
+        pst.setString(1, accountnumber.getText());
+        ResultSet rs = pst.executeQuery();
+        
+        if (rs.next()) {
+            int u_id = rs.getInt("u_id");
+            // Ipadayon imong logic diri...
         }
-
-        // Validate kWh used
-        double kWhUsed;
-        try {
-            kWhUsed = Double.parseDouble(kWhText);
-            if (kWhUsed < 0) {
-                JOptionPane.showMessageDialog(this, "kWh used must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid number for kWh used.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Validate bill month
-        if (billMonth == null || billMonth.equals("Select Month")) {
-            JOptionPane.showMessageDialog(this, "Please select a bill month.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Validate due date format MM/DD/YYYY
-        if (!dueDateText.matches("^\\d{2}/\\d{2}/\\d{4}$")) {
-            JOptionPane.showMessageDialog(this, "Please enter due date in MM/DD/YYYY format.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Calculate amount due
-        double amountDue = 0.0;
-
-        // Set default status
-        String status = "Pending";
-
-        // Database operations
-        Connection conn = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-
-        try {
-            conn = config.getConnection();
-
-            // Query to get user_id from account_number
-            String getUserIdQuery = "SELECT id FROM users WHERE account_number = ?";
-            pst = conn.prepareStatement(getUserIdQuery);
-            pst.setString(1, accountNum);
-            rs = pst.executeQuery();
-
-            int userId = -1;
-            if (rs.next()) {
-                userId = rs.getInt("id");
-            } else {
-                JOptionPane.showMessageDialog(this, "Account number not found.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            rs.close();
-            pst.close();
-
-            // Query to get current rate_perkWh
-            String getRateQuery = "SELECT rate_perkWh FROM tbl_bill LIMIT 1";
-            pst = conn.prepareStatement(getRateQuery);
-            rs = pst.executeQuery();
-            double ratePerkWh = 0.0;
-            if (rs.next()) {
-                ratePerkWh = rs.getDouble("rate_perkWh");
-            }
-            rs.close();
-            pst.close();
-
-            // Calculate amount due using rate_perkWh
-            amountDue = kWhUsed * ratePerkWh;
-
-            // Convert dueDateText to java.sql.Date
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-            java.util.Date parsedDate = sdf.parse(dueDateText);
-            java.sql.Date dueDate = new java.sql.Date(parsedDate.getTime());
-
-            // Insert bill query
-            String insertQuery = "INSERT INTO tbl_bill (user_id, bill_month, kwh_used, amount_due, due_date, status, rate_perkWh) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            pst = conn.prepareStatement(insertQuery);
-            pst.setInt(1, userId);
-            pst.setString(2, billMonth);
-            pst.setDouble(3, kWhUsed);
-            pst.setDouble(4, amountDue);
-            pst.setDate(5, dueDate);
-            pst.setString(6, status);
-            pst.setDouble(7, ratePerkWh);
-
-            int rowsInserted = pst.executeUpdate();
-            if (rowsInserted > 0) {
-                String message = String.format("Bill added successfully!\nAccount Number: %s\nkWh Used: %.2f\nAmount Due: %.2f\nMonth: %s\nDue Date: %s\nStatus: %s\nRate per kWh: %.2f",
-                    accountNum, kWhUsed, amountDue, billMonth, dueDateText, status, ratePerkWh);
-                JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                // Clear fields after adding
-                accountnumber.setText("");
-                kWh.setText("");
-                monthcombobox.setSelectedIndex(0);
-                duedate.setText("");
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to add bill.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (ParseException e) {
-            JOptionPane.showMessageDialog(this, "Invalid date format.", "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                // Ignore close errors
-            }
-        }
+        
+        rs.close();
+        pst.close();
+        conn.close();
+    }
+} catch (SQLException ex) {
+    JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage());
+}
+       
     }//GEN-LAST:event_addbillbtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddBills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddBills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddBills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddBills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+           
+            javax.swing.JOptionPane.showMessageDialog(null, "Direct access is forbidden! Please login first.");
+            new login().setVisible(true);
         }
-        //</editor-fold>
+    });
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddBills().setVisible(true);
-            }
-        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -333,17 +210,4 @@ public class AddBills extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> monthcombobox;
     // End of variables declaration//GEN-END:variables
 
-    private static class Connection {
-
-        public Connection() {
-        }
-
-        private PreparedStatement prepareStatement(String userIdQuery) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        private void close() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-    }
 }

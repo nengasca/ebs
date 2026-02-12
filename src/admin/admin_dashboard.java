@@ -92,14 +92,16 @@ public class admin_dashboard extends javax.swing.JFrame {
         adduser = new javax.swing.JButton();
         edituser = new javax.swing.JButton();
         deleteuser = new javax.swing.JButton();
+        refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(244, 246, 249));
+        jPanel3.setBackground(new java.awt.Color(0, 204, 204));
         jPanel3.setPreferredSize(new java.awt.Dimension(900, 600));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(44, 62, 80));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 100));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -107,9 +109,9 @@ public class admin_dashboard extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("PowerPay");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 180, 40));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 180, 40));
 
-        logoutbtn.setBackground(new java.awt.Color(44, 62, 80));
+        logoutbtn.setBackground(new java.awt.Color(0, 153, 153));
         logoutbtn.setForeground(new java.awt.Color(44, 62, 80));
         logoutbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -133,7 +135,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         jPanel1.add(logoutbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, 40));
 
-        userbtn.setBackground(new java.awt.Color(44, 62, 80));
+        userbtn.setBackground(new java.awt.Color(0, 153, 153));
         userbtn.setForeground(new java.awt.Color(44, 62, 80));
         userbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -162,7 +164,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         jPanel1.add(userbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, 40));
 
-        billsbtn.setBackground(new java.awt.Color(44, 62, 80));
+        billsbtn.setBackground(new java.awt.Color(0, 153, 153));
         billsbtn.setForeground(new java.awt.Color(44, 62, 80));
         billsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -186,7 +188,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         jPanel1.add(billsbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 40));
 
-        paymentbtn.setBackground(new java.awt.Color(44, 62, 80));
+        paymentbtn.setBackground(new java.awt.Color(0, 153, 153));
         paymentbtn.setForeground(new java.awt.Color(44, 62, 80));
         paymentbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -215,7 +217,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         jPanel1.add(paymentbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 40));
 
-        settingsbtn.setBackground(new java.awt.Color(44, 62, 80));
+        settingsbtn.setBackground(new java.awt.Color(0, 153, 153));
         settingsbtn.setForeground(new java.awt.Color(44, 62, 80));
         settingsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -244,7 +246,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         jPanel1.add(settingsbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, 40));
 
-        logsbtn.setBackground(new java.awt.Color(44, 62, 80));
+        logsbtn.setBackground(new java.awt.Color(0, 153, 153));
         logsbtn.setForeground(new java.awt.Color(44, 62, 80));
         logsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -270,6 +272,7 @@ public class admin_dashboard extends javax.swing.JFrame {
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
 
+        usertable.setAutoCreateColumnsFromModel(false);
         usertable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -280,22 +283,22 @@ public class admin_dashboard extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(usertable);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 490, 380));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 500, 300));
 
         welcometxt.setBackground(new java.awt.Color(0, 0, 0));
-        welcometxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        welcometxt.setFont(new java.awt.Font("Lucida Calligraphy", 1, 18)); // NOI18N
         welcometxt.setText("Welcome,");
         jPanel3.add(welcometxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 100, 20));
 
         fName.setBackground(new java.awt.Color(0, 0, 0));
-        fName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        fName.setFont(new java.awt.Font("Lucida Calligraphy", 1, 18)); // NOI18N
         fName.setText("Admin!");
         jPanel3.add(fName, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, 80, 20));
 
         welcometxt1.setBackground(new java.awt.Color(0, 0, 0));
-        welcometxt1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        welcometxt1.setFont(new java.awt.Font("Lucida Calligraphy", 1, 24)); // NOI18N
         welcometxt1.setText("Manage Users");
-        jPanel3.add(welcometxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 130, 20));
+        jPanel3.add(welcometxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 220, 40));
 
         searchfield.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
         searchfield.setPreferredSize(new java.awt.Dimension(350, 40));
@@ -304,7 +307,7 @@ public class admin_dashboard extends javax.swing.JFrame {
                 searchfieldActionPerformed(evt);
             }
         });
-        jPanel3.add(searchfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 480, -1));
+        jPanel3.add(searchfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 330, 30));
 
         searchbtn.setBackground(new java.awt.Color(44, 62, 80));
         searchbtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -316,7 +319,7 @@ public class admin_dashboard extends javax.swing.JFrame {
                 searchbtnActionPerformed(evt);
             }
         });
-        jPanel3.add(searchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, 80, 40));
+        jPanel3.add(searchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 110, 70, 30));
 
         activateuser.setBackground(new java.awt.Color(44, 62, 80));
         activateuser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -328,7 +331,7 @@ public class admin_dashboard extends javax.swing.JFrame {
                 activateuserActionPerformed(evt);
             }
         });
-        jPanel3.add(activateuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, 80, 30));
+        jPanel3.add(activateuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 80, 30));
 
         adduser.setBackground(new java.awt.Color(44, 62, 80));
         adduser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -340,7 +343,7 @@ public class admin_dashboard extends javax.swing.JFrame {
                 adduserActionPerformed(evt);
             }
         });
-        jPanel3.add(adduser, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 80, 30));
+        jPanel3.add(adduser, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 80, 30));
 
         edituser.setBackground(new java.awt.Color(44, 62, 80));
         edituser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -352,7 +355,7 @@ public class admin_dashboard extends javax.swing.JFrame {
                 edituserActionPerformed(evt);
             }
         });
-        jPanel3.add(edituser, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, 80, 30));
+        jPanel3.add(edituser, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 80, 30));
 
         deleteuser.setBackground(new java.awt.Color(44, 62, 80));
         deleteuser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -364,28 +367,21 @@ public class admin_dashboard extends javax.swing.JFrame {
                 deleteuserActionPerformed(evt);
             }
         });
-        jPanel3.add(deleteuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 60, 80, 30));
+        jPanel3.add(deleteuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, 80, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        refresh.setBackground(new java.awt.Color(44, 62, 80));
+        refresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        refresh.setText("Refresh");
+        refresh.setBorder(null);
+        refresh.setPreferredSize(new java.awt.Dimension(350, 40));
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
+        jPanel3.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 80, 30));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -1, 846, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -502,7 +498,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_searchbtnActionPerformed
 
     private void activateuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activateuserActionPerformed
-                                                
+                                                      
     int selectedRow = usertable.getSelectedRow();
     if (selectedRow == -1) {
         JOptionPane.showMessageDialog(this, "Please select a user to activate.");
@@ -605,18 +601,21 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
- 
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+    populateUserTable();
+    System.out.println("Table Refreshed!"); 
 
-// I-DELETE NA KINI NGA BAHIN SA IMONG CODE:
-/* private static class db {
-    private static Connection getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    }//GEN-LAST:event_refreshActionPerformed
+
+    public static void main(String args[]) {
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+           
+            javax.swing.JOptionPane.showMessageDialog(null, "Direct access is forbidden! Please login first.");
+            new login().setVisible(true);
+        }
+    });
     }
-}
-*/
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton activateuser;
@@ -644,6 +643,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel logoutbtn;
     private javax.swing.JPanel logsbtn;
     private javax.swing.JPanel paymentbtn;
+    private javax.swing.JButton refresh;
     private javax.swing.JButton searchbtn;
     private javax.swing.JTextField searchfield;
     private javax.swing.JPanel settingsbtn;
@@ -660,19 +660,12 @@ public class admin_dashboard extends javax.swing.JFrame {
 
     // 2. Limpyo nga populateUserTable (DILI DAPAT NI NAY THROW)
    private void populateUserTable() {
-    try {
-        // Ang query mokuha sa tanang columns sa users table
-        String query = "SELECT u_id, u_firstname, u_lastname, u_username, u_role, u_status FROM users";
-        
-        // Gamita ang 'db' nga object (imong config)
-        java.sql.ResultSet rs = db.getData(query);
-        
-        // I-display sa table gamit ang rs2xml (DbUtils)
-        usertable.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
-        
-    } catch (java.sql.SQLException e) {
-        System.out.println("Error Loading Table: " + e.getMessage());
-    }
+       // Ang query mokuha sa tanang columns sa users table
+       String query = "SELECT u_id, u_firstname, u_lastname, u_username, u_role, u_status FROM users";
+       // Gamita ang 'db' nga object (imong config)
+       java.sql.ResultSet rs = db.getData(query);
+       // I-display sa table gamit ang rs2xml (DbUtils)
+       usertable.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
 }
 
     // Siguroa nga ang katapusan sa imong file kay ang Variables Declaration ra
