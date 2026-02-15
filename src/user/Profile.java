@@ -12,22 +12,45 @@ import java.sql.PreparedStatement;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import main.login;
+import config.config;
+import javax.swing.Icon;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import config.usersession;
+import java.sql.SQLException;
 
 /**
  *
  * @author Administrator
  */
 public class Profile extends javax.swing.JFrame {
-
+    
+    // DAPAT NAA NI DIRI PARA MA-RECOGNIZE SA BUTTON
+    String name; 
     private Color hoverColor;
     private Color defaultColor;
+    private Object user;
 
-    /**
-     * Creates new form Profile
-     */
-    public Profile() {
+    public Profile(String loginName) {
         initComponents();
+        this.name = loginName; // I-assign ang value gikan sa login
     }
+
+    private Profile() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void btnGoToDashboardActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+        try {
+            // Mao ni ang line nga naay error:
+            // Siguruha nga ang 'user_dashboard' file naay String parameter
+            new user_dashboard(this.name).setVisible(true);
+            this.dispose(); 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }                                                
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -129,7 +152,7 @@ public class Profile extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Home");
-        homebtn.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
+        homebtn.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 50, 30));
         homebtn.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
 
         jPanel1.add(homebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, 40));
@@ -210,15 +233,15 @@ public class Profile extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("PowerPay");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 30, 220, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 22, 220, 70));
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Lucida Calligraphy", 1, 36)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Profile");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 190, 40));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 190, 50));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setText("ID");
@@ -241,12 +264,12 @@ public class Profile extends javax.swing.JFrame {
         idfield.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
         idfield.setEnabled(false);
         idfield.setPreferredSize(new java.awt.Dimension(350, 40));
-        jPanel3.add(idfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 180, -1));
+        jPanel3.add(idfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 220, 30));
 
         firstnamefield.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
         firstnamefield.setEnabled(false);
         firstnamefield.setPreferredSize(new java.awt.Dimension(350, 40));
-        jPanel3.add(firstnamefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 250, 180, -1));
+        jPanel3.add(firstnamefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 220, 30));
 
         statuslabe.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         statuslabe.setForeground(new java.awt.Color(0, 204, 0));
@@ -256,24 +279,29 @@ public class Profile extends javax.swing.JFrame {
         lastnamefield.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
         lastnamefield.setEnabled(false);
         lastnamefield.setPreferredSize(new java.awt.Dimension(350, 40));
-        jPanel3.add(lastnamefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 250, 180, -1));
+        lastnamefield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lastnamefieldActionPerformed(evt);
+            }
+        });
+        jPanel3.add(lastnamefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 220, 30));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel17.setText("Last Name");
-        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 160, -1));
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 330, 160, -1));
 
         emailfield.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
         emailfield.setEnabled(false);
         emailfield.setPreferredSize(new java.awt.Dimension(350, 40));
-        jPanel3.add(emailfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 180, -1));
+        jPanel3.add(emailfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, 210, 30));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel18.setText("Email");
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 160, -1));
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 230, 160, -1));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel19.setText("Account Number");
-        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 320, 180, -1));
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 180, -1));
 
         accnumfield.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
         accnumfield.setEnabled(false);
@@ -283,11 +311,11 @@ public class Profile extends javax.swing.JFrame {
                 accnumfieldActionPerformed(evt);
             }
         });
-        jPanel3.add(accnumfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 340, 180, -1));
+        jPanel3.add(accnumfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 350, 210, 30));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel20.setText("First Name");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, 160, -1));
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 160, -1));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel21.setText("Status:");
@@ -325,30 +353,26 @@ public class Profile extends javax.swing.JFrame {
                 addressfieldActionPerformed(evt);
             }
         });
-        jPanel3.add(addressfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 340, 180, -1));
+        jPanel3.add(addressfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, 210, 30));
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setText("Address");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, 160, -1));
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 725, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 416, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -370,7 +394,7 @@ public class Profile extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutbtnMouseExited
 
     private void homebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homebtnMouseClicked
-        new user_dashboard().setVisible(true);
+      new user_dashboard(this.name).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_homebtnMouseClicked
 
@@ -429,40 +453,17 @@ public class Profile extends javax.swing.JFrame {
     }//GEN-LAST:event_accnumfieldActionPerformed
 
     private void removeProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeProfileActionPerformed
-        // Remove profile picture
-        try {
-            config.usersession session = config.usersession.getInstance();
-            String currentImagePath = session.getImage();
+    try {
+        user.Profile prof = new user.Profile();
+        String defaultImagePath = "src/images/logor.png";
+        
+     profile.setIcon(prof.ResizeImage(defaultImagePath, null, profile));
+        // ... (imong uban nga database code)
+        
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+    }
 
-            // Remove image icon from label and set default profile image
-            config.profile prof = new config.profile();
-            String defaultImagePath = "src/images/logor.png";
-            profile.setIcon(prof.ResizeImage(defaultImagePath, null, profile));
-
-            // Update database to remove image path
-            String sql = "UPDATE users SET image = NULL WHERE id = ?";
-            try (Connection conn = config.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setInt(1, session.getId());
-                pstmt.executeUpdate();
-            }
-
-            // Update session image path
-            session.setImage(null);
-
-            // Optionally delete the image file if it exists and is not default
-            if (currentImagePath != null && !currentImagePath.isEmpty() && !currentImagePath.equals(defaultImagePath)) {
-                File imageFile = new File(currentImagePath);
-                if (imageFile.exists() && imageFile.isFile()) {
-                    imageFile.delete();
-                }
-            }
-
-            JOptionPane.showMessageDialog(this, "Profile picture removed successfully!");
-        } catch (Exception e) {
-            System.out.println("Error removing profile picture: " + e.getMessage());
-            JOptionPane.showMessageDialog(this, "Error removing profile picture: " + e.getMessage());
-        }
     }//GEN-LAST:event_removeProfileActionPerformed
 
     private void selectProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectProfileActionPerformed
@@ -477,15 +478,14 @@ public class Profile extends javax.swing.JFrame {
                 String destination = "src/images/" + fileName;
                 String path = selectedFile.getAbsolutePath();
 
-                config.profile prof = new config.profile();
+                user.Profile prof = new user.Profile();
 
                 // Set the image icon
+               // I-ilis kini nga linya:
                 profile.setIcon(prof.ResizeImage(path, null, profile));
-
                 // Copy the file to the destination
                 prof.imageUpdater(destination, path);
 
-                // Update user's image path in database and session
                 config.usersession session = config.usersession.getInstance();
 
                 // Update image path in database
@@ -506,39 +506,18 @@ public class Profile extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addressfieldActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void lastnamefieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastnamefieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lastnamefieldActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Profile().setVisible(true);
-            }
-        });
+    public static void main(String args[]) {
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+           
+            javax.swing.JOptionPane.showMessageDialog(null, "Direct access is forbidden! Please login first.");
+            new login().setVisible(true);
+        }
+    });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -585,7 +564,27 @@ public class Profile extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void updateUserImagePath(int id, String destination) {
+   public void updateUserImagePath(int id, String path) {
+    try {
+        config conf = new config();
+        Connection conn = conf.connectDB();
+        String sql = "UPDATE users SET u_image = ? WHERE u_id = ?";
+        PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setString(1, path);
+        pst.setInt(2, id);
+        pst.executeUpdate();
+        pst.close();
+        conn.close();
+    } catch (SQLException e) {
+        System.out.println("Error updating image path: " + e.getMessage());
+    }
+}
+
+    private void imageUpdater(String destination, String path) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private Icon ResizeImage(String defaultImagePath, Object object, JLabel profile) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -8,6 +8,8 @@ package Bills;
 import admin.Logs;
 import admin.Setting;
 import admin.admin_dashboard;
+import config.billsmodel;
+import config.config;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +17,11 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import main.login;
 import payment.Payment;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -328,7 +335,7 @@ public class Bills extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutbtnMouseExited
 
     private void userbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userbtnMouseClicked
-        new admin_dashboard().setVisible(true);
+       new admin_dashboard("Admin Name").setVisible(true);
         this.dispose();
     }//GEN-LAST:event_userbtnMouseClicked
 
@@ -392,53 +399,43 @@ public class Bills extends javax.swing.JFrame {
     }//GEN-LAST:event_logsbtnMouseExited
 
     private void searchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbtnActionPerformed
-        // Search Bills by keyword in all columns and display in billstable
-        String searchText = searchfield.getText().trim();
-        if (searchText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter search text.");
-            return;
-        }
-        try {
-            String query = "SELECT b.b_id, u.account_number, b.bill_month, b.kwh_used, b.amount_due, b.due_date, b.status " +
-            "FROM tbl_bill b " +
-            "JOIN users u ON b.user_id = u.id " +
-            "WHERE CAST(b.b_id AS CHAR) LIKE ? OR " +
-            "u.account_number LIKE ? OR " +
-            "b.bill_month LIKE ? OR " +
-            "CAST(b.kwh_used AS CHAR) LIKE ? OR " +
-            "CAST(b.amount_due AS CHAR) LIKE ? OR " +
-            "CAST(b.due_date AS CHAR) LIKE ? OR " +
-            "b.status LIKE ?";
-            Connection con = db.getConnection();
-            PreparedStatement pst = con.prepareStatement(query);
-            String likeText = "%" + searchText + "%";
-            for (int i = 1; i <= 7; i++) {
-                pst.setString(i, likeText);
-            }
-            ResultSet rs = pst.executeQuery();
-            // Convert ResultSet to List<billsmodel>
-            java.util.List<config.billsmodel> billsList = new java.util.ArrayList<>();
-            while (rs.next()) {
-                config.billsmodel bill = new config.billsmodel(
-                    rs.getInt("b_id"),
-                    rs.getString("account_number"),
-                    rs.getString("bill_month"),
-                    rs.getInt("kwh_used"),
-                    rs.getDouble("amount_due"),
-                    rs.getDate("due_date"),
-                    rs.getString("status")
-                );
-                billsList.add(bill);
-            }
-            rs.close();
-            pst.close();
-            con.close();
+        // 1. Kuhaa ang text gikan sa search bar
+String searchText = searchfield.getText().trim();
 
-            // Set table model from billsList
-            setBillsTableModel(billsList);
+if (searchText.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Please enter search text.");
+    return;
+}
 
-        } catch (java.sql.SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error searching bills: " + e.getMessage());
+try {
+    // 2. I-define ang imong SQL query string
+    String query = "SELECT b.b_id, u.account_number, b.bill_month, b.kwh_used, b.amount_due, b.due_date, b.status " +
+                   "FROM tbl_bill b JOIN users u ON b.user_id = u.id " +
+                   "WHERE ..."; // sumpay sa imong LIKE conditions
+
+    // --- MAO KINI ANG IMONG GI-INSERT ---
+    // 1. I-initialize ang imong config class (gamit ang husto nga class name)
+     config conf = new config(); 
+
+// 2. Tawga ang connectDB() method nga naa sa imong config.java
+    Connection con = conf.connectDB(); 
+
+    if (con != null) {
+    PreparedStatement pst = con.prepareStatement(query);
+    // ... padayon sa imong code
+}
+    // 3. I-prepare ang statement gamit ang 'con' nga bag-o lang nimo gi-initialize
+    PreparedStatement pst = con.prepareStatement(query);
+    
+    String likeText = "%" + searchText + "%";
+    for (int i = 1; i <= 7; i++) {
+        pst.setString(i, likeText);
+    }
+
+    // 4. I-execute ang query
+    ResultSet rs = pst.executeQuery();
+}       catch (SQLException ex) {
+            Logger.getLogger(Bills.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_searchbtnActionPerformed
 
@@ -467,36 +464,14 @@ public class Bills extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Bills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Bills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Bills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Bills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+           
+            javax.swing.JOptionPane.showMessageDialog(null, "Direct access is forbidden! Please login first.");
+            new login().setVisible(true);
         }
-        //</editor-fold>
-        //</editor-fold>
+    });
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Bills().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -531,6 +506,10 @@ public class Bills extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void logAction(String admin_Logged_Out) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void setBillsTableModel(List<billsmodel> billsList) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

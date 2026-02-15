@@ -31,17 +31,21 @@ public class landing extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         register = new javax.swing.JButton();
         login = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 204, 204));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logor.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 11, -1, 96));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 96));
 
         jLabel2.setFont(new java.awt.Font("Lucida Calligraphy", 2, 36)); // NOI18N
         jLabel2.setText("Electricity Billing  System");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 21, 513, 70));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 513, 70));
 
+        register.setBackground(new java.awt.Color(0, 0, 0));
         register.setText("Register");
         register.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,6 +54,7 @@ public class landing extends javax.swing.JFrame {
         });
         getContentPane().add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 171, 112, 32));
 
+        login.setBackground(new java.awt.Color(51, 51, 51));
         login.setText("Login");
         login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,6 +62,9 @@ public class landing extends javax.swing.JFrame {
             }
         });
         getContentPane().add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 209, 112, 32));
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -114,6 +122,7 @@ public class landing extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton login;
     private javax.swing.JButton register;
     // End of variables declaration//GEN-END:variables

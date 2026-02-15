@@ -55,14 +55,14 @@ public class register extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        bg.setBackground(new java.awt.Color(244, 246, 249));
+        bg.setBackground(new java.awt.Color(0, 204, 204));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Lucida Calligraphy", 1, 20)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Create New Account");
-        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 560, 40));
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 560, 40));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("First Name");
@@ -72,9 +72,9 @@ public class register extends javax.swing.JFrame {
         firstnamefield.setPreferredSize(new java.awt.Dimension(350, 40));
         bg.add(firstnamefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 240, 40));
 
-        loginbtn.setBackground(new java.awt.Color(46, 134, 222));
+        loginbtn.setBackground(new java.awt.Color(0, 204, 204));
         loginbtn.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        loginbtn.setForeground(new java.awt.Color(46, 134, 222));
+        loginbtn.setForeground(new java.awt.Color(0, 102, 102));
         loginbtn.setText("Login");
         loginbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -182,7 +182,7 @@ public class register extends javax.swing.JFrame {
         jLabel11.setText("Customer Account Number");
         bg.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, -1, -1));
 
-        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 694, 520));
+        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

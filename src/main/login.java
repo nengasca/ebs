@@ -48,22 +48,27 @@ public class login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        bg.setBackground(new java.awt.Color(244, 246, 249));
+        bg.setBackground(new java.awt.Color(0, 204, 204));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("  PowerPay");
-        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 310, 70));
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 310, 70));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Username");
-        bg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, -1, -1));
+        bg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, -1, -1));
 
         UserField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
         UserField.setPreferredSize(new java.awt.Dimension(350, 40));
-        bg.add(UserField, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, -1, -1));
+        UserField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserFieldActionPerformed(evt);
+            }
+        });
+        bg.add(UserField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, -1, 30));
 
         registerBtn.setBackground(new java.awt.Color(46, 134, 222));
         registerBtn.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -74,7 +79,7 @@ public class login extends javax.swing.JFrame {
                 registerBtnMouseClicked(evt);
             }
         });
-        bg.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 470, -1, -1));
+        bg.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 350, -1, -1));
 
         loginbtn.setBackground(new java.awt.Color(46, 134, 222));
         loginbtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -86,27 +91,27 @@ public class login extends javax.swing.JFrame {
                 loginbtnActionPerformed(evt);
             }
         });
-        bg.add(loginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, -1, -1));
+        bg.add(loginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 210, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Password");
-        bg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, -1, -1));
+        bg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, -1));
 
         PasswordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
         PasswordField.setPreferredSize(new java.awt.Dimension(350, 40));
-        bg.add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, -1, -1));
+        bg.add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, -1, 30));
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Lucida Calligraphy", 1, 20)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Login to Your Account");
-        bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 900, -1));
+        bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 80, 590, 60));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel6.setText("Don't have an account?");
-        bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 470, -1, -1));
+        bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, -1, -1));
 
-        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-150, 0, 900, 600));
+        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -118,67 +123,62 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_registerBtnMouseClicked
 
     private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
-                                            
-    String user = UserField.getText().trim();
+   String user = UserField.getText().trim();
     String pass = new String(PasswordField.getPassword()).trim();
 
-    // 1. Check kung empty ba ang fields
     if (user.isEmpty() || pass.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Palihog puy-i ang tanan!", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Please fill in all the blanks.");
         return;
     }
 
     config db = new config();
-
     try {
-        // 2. Query para i-check ang credentials
+        // Query para i-verify ang user
         String query = "SELECT * FROM users WHERE u_username = '" + user + "' AND u_password = '" + pass + "'";
         java.sql.ResultSet rs = db.getData(query);
 
         if (rs.next()) {
-            // Kuhaon ang data gikan sa database columns
+            // --- DIRI NIMO I-PASTE ANG IMONG CODE ---
             String status = rs.getString("u_status");
-            String role = rs.getString("u_role");
-            String fNameFromDB = rs.getString("u_firstname"); // Mao ni ang tinuod nga ngalan
-
-            // 3. Check kung Active ba ang account
+            
             if (status.equalsIgnoreCase("Active")) {
-                
+                // I-save ang data sa Session
+                config.usersession session = config.usersession.getInstance();
+                session.setId(rs.getInt("u_id"));
+                session.setFirstname(rs.getString("u_fname"));
+                session.setLastname(rs.getString("u_lname"));
+                session.setRole(rs.getString("u_role"));
+                session.setAccNum(rs.getString("u_accnum"));
+
+                String role = session.getRole();
+                String fNameFromDB = session.getFirstname();
+
                 if (role.equalsIgnoreCase("Admin")) {
                     JOptionPane.showMessageDialog(this, "Login Successful! Welcome Admin " + fNameFromDB);
-                    
-                    // I-pasa ang fNameFromDB ngadto sa admin_dashboard constructor
-                    admin.admin_dashboard ads = new admin.admin_dashboard(fNameFromDB);
-                    ads.setVisible(true);
+                    new admin.admin_dashboard(fNameFromDB).setVisible(true);
                     this.dispose(); 
                 } 
                 else if (role.equalsIgnoreCase("User")) {
                     JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + fNameFromDB);
-                    
-                    // I-pasa ang fNameFromDB ngadto sa user_dashboard constructor
-                    user.user_dashboard usd = new user.user_dashboard(fNameFromDB);
-                    usd.setVisible(true);
+                    new user.user_dashboard(fNameFromDB).setVisible(true);
                     this.dispose(); 
                 }
-            } 
-            else {
-                // Kung 'Pending' o 'Inactive' ang status
-                JOptionPane.showMessageDialog(this, "Ang imong account kay " + status + ". Kontaka ang Admin.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Your account is " + status + ".", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            // --- KATAPUSAN SA IMONG CODE ---
         } else {
-            // Kung mali ang username o password
-            JOptionPane.showMessageDialog(this, "Sayop ang Username o Password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Invalid Username or Password!");
         }
-        rs.close(); 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
     }
 
-
-         
-  
-        
     }//GEN-LAST:event_loginbtnActionPerformed
+
+    private void UserFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserFieldActionPerformed
 
     /**
      * @param args the command line arguments
