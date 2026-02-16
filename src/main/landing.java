@@ -45,7 +45,7 @@ public class landing extends javax.swing.JFrame {
         jLabel2.setText("Electricity Billing  System");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 513, 70));
 
-        register.setBackground(new java.awt.Color(0, 0, 0));
+        register.setBackground(new java.awt.Color(255, 255, 255));
         register.setText("Register");
         register.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,7 +54,7 @@ public class landing extends javax.swing.JFrame {
         });
         getContentPane().add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 171, 112, 32));
 
-        login.setBackground(new java.awt.Color(51, 51, 51));
+        login.setBackground(new java.awt.Color(255, 255, 255));
         login.setText("Login");
         login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,7 +64,7 @@ public class landing extends javax.swing.JFrame {
         getContentPane().add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 209, 112, 32));
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 310));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -299,7 +299,11 @@ public class Payment extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutbtnMouseExited
 
     private void userbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userbtnMouseClicked
-        new admin_dashboard("Admin").setVisible(true);
+        try {
+            new admin_dashboard("Admin").setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_userbtnMouseClicked
 

@@ -211,7 +211,7 @@ public class register extends javax.swing.JFrame {
         config db = new config();
         
         // MAO NI ANG SAKTONG COLUMN NAMES BASE SA IMONG EBS.DB
-        String sql = "INSERT INTO users (u_fname, u_lname, u_email, u_username, u_password, u_role, u_adderss, u_accnum, u_status) "
+        String sql = "INSERT INTO users (u_fname, u_lname, u_email, u_username, u_password, u_role, u_address, u_accnum, u_status) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         // Siguroa nga ang order sa values parehas sa SQL columns sa taas

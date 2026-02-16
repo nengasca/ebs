@@ -1,43 +1,22 @@
-
 package config;
 
-import java.sql.Array;
-import java.sql.Blob;
-import java.sql.CallableStatement;
-import java.sql.Clob;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.Date;
 import java.sql.DriverManager;
-import java.sql.NClob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.SQLXML;
-import java.sql.Savepoint;
 import java.sql.Statement;
-import java.sql.Struct;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.Executor;
-import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
 
-/**
- *
- * @author Administrator
- */
 public class config {
 
-    public static Object config;
+    
     public static Connection connectDB() {
         Connection con = null;
         try {
-            Class.forName("org.sqlite.JDBC"); // Load the SQLite JDBC driver
-            con = DriverManager.getConnection("jdbc:sqlite:ebs.db"); // Establish connection
+            Class.forName("org.sqlite.JDBC"); 
+            con = DriverManager.getConnection("jdbc:sqlite:ebs.db"); 
             System.out.println("Connection Successful");
         } catch (Exception e) {
             System.out.println("Connection Failed: " + e);
@@ -45,137 +24,95 @@ public class config {
         return con;
     }
 
-    public static String hashPassword(String oldPassRaw) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static String getID() {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
-    public static String getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static String hashPassword(String oldPassRaw) {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     public static String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    // Method used by admin_dashboard to retrieve result sets
+   public java.sql.ResultSet getData(String query) throws java.sql.SQLException {
+    java.sql.Connection conn = connectDB();
+    java.sql.Statement stmt = conn.createStatement();
+    return stmt.executeQuery(query);
+}
+    public Connection getConnection() {
+        return connectDB();
     }
 
     public void addRecord(String sql, Object... values) {
-    try (Connection conn = this.connectDB(); // Use the connectDB method
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-        // Loop through the values and set them in the prepared statement dynamically
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] instanceof Integer) {
-                pstmt.setInt(i + 1, (Integer) values[i]); // If the value is Integer
-            } else if (values[i] instanceof Double) {
-                pstmt.setDouble(i + 1, (Double) values[i]); // If the value is Double
-            } else if (values[i] instanceof Float) {
-                pstmt.setFloat(i + 1, (Float) values[i]); // If the value is Float
-            } else if (values[i] instanceof Long) {
-                pstmt.setLong(i + 1, (Long) values[i]); // If the value is Long
-            } else if (values[i] instanceof Boolean) {
-                pstmt.setBoolean(i + 1, (Boolean) values[i]); // If the value is Boolean
-            } else if (values[i] instanceof java.util.Date) {
-                pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) values[i]).getTime())); // If the value is Date
-            } else if (values[i] instanceof java.sql.Date) {
-                pstmt.setDate(i + 1, (java.sql.Date) values[i]); // If it's already a SQL Date
-            } else if (values[i] instanceof java.sql.Timestamp) {
-                pstmt.setTimestamp(i + 1, (java.sql.Timestamp) values[i]); // If the value is Timestamp
-            } else {
-                pstmt.setString(i + 1, values[i].toString()); // Default to String for other types
+        try (Connection conn = connectDB(); 
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            for (int i = 0; i < values.length; i++) {
+                pstmt.setObject(i + 1, values[i]);
             }
+            pstmt.executeUpdate();
+            System.out.println("Record added successfully!");
+        } catch (SQLException e) {
+            System.out.println("Error adding record: " + e.getMessage());
         }
+    }
 
-        pstmt.executeUpdate();
-        System.out.println("Record added successfully!");
-    } catch (SQLException e) {
-        System.out.println("Error adding record: " + e.getMessage());
-    }
-}
-public void displayData(String sql, javax.swing.JTable table) {
-    try (Connection conn = connectDB();
-         PreparedStatement pstmt = conn.prepareStatement(sql);
-         ResultSet rs = pstmt.executeQuery()) {
-        
-        // This line automatically maps the Resultset to your JTable
-        table.setModel(DbUtils.resultSetToTableModel(rs));
-        
-    } catch (SQLException e) {
-        System.out.println("Error displaying data: " + e.getMessage());
-    }
-}
-public boolean authenticate(String sql, Object... values) {
+        public void displayData(String sql, javax.swing.JTable table, Object... values) {
     try (Connection conn = connectDB();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+        
+        // Set the parameters for the search
         for (int i = 0; i < values.length; i++) {
             pstmt.setObject(i + 1, values[i]);
         }
 
         try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                return true;
-            }
+            // Automatically maps the filtered ResultSet to your JTable
+            table.setModel(DbUtils.resultSetToTableModel(rs));
         }
+        
     } catch (SQLException e) {
-        System.out.println("Login Error: " + e.getMessage());
+        System.out.println("Error filtering data: " + e.getMessage());
     }
-    return false;
 }
 
-    public ResultSet getData(String query) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Connection getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public static class usersession {
+        private static usersession instance;
+        private int id;
+        private String fname, lname, role, accNum;
+
+        private usersession() {}
 
         public static usersession getInstance() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            if (instance == null) {
+                instance = new usersession();
+            }
+            return instance;
         }
 
-        public usersession() {
-        }
+        public int getId() { return id; }
+        public void setId(int id) { this.id = id; }
+
+        public String getFirstname() { return fname; }
+        public void setFirstname(String firstname) { this.fname = firstname; }
+
+        public String getLastname() { return lname; }
+        public void setLastname(String lastname) { this.lname = lastname; }
+
+        public String getRole() { return role; }
+        public void setRole(String role) { this.role = role; }
+
+        public String getAccNum() { return accNum; }
+        public void setAccNum(String accNum) { this.accNum = accNum; }
 
         public void setImage(String destination) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public int getId() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            throw new UnsupportedOperationException("Not supported yet.");
         }
 
         public void setPassword(String newPassHashed) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public void setAccNum(String string) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public void setId(int aInt) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public void setFirstname(String string) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public void setLastname(String string) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public void setRole(String string) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public String getRole() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public String getFirstname() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            throw new UnsupportedOperationException("Not supported yet.");
         }
     }
 
@@ -184,6 +121,4 @@ public boolean authenticate(String sql, Object... values) {
         public billsmodel() {
         }
     }
-
-    
 }

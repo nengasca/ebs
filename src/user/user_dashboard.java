@@ -28,6 +28,7 @@ public class user_dashboard extends javax.swing.JFrame {
     private Color hoverColor = new Color(52,73,94);
     private config db = new config(); // Gi-fix gikan sa Object ngadto sa config
     public String name;
+    private Connection con;
     
 
     // 2. CONSTRUCTOR (Diri ang tawag sa method)
@@ -50,7 +51,7 @@ public class user_dashboard extends javax.swing.JFrame {
 
         try {
             // Koneksyon sa Database
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/imong_db", "root", "");
+            con = DriverManager.getConnection("jdbc:sqlite:ebs.db"); 
             String query = "SELECT * FROM bills WHERE username = ?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, this.name);
@@ -120,7 +121,7 @@ public class user_dashboard extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         logoutbtn.setBackground(new java.awt.Color(0, 153, 153));
-        logoutbtn.setForeground(new java.awt.Color(44, 62, 80));
+        logoutbtn.setForeground(new java.awt.Color(0, 153, 153));
         logoutbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 logoutbtnMouseClicked(evt);
@@ -144,7 +145,7 @@ public class user_dashboard extends javax.swing.JFrame {
         jPanel1.add(logoutbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 40));
 
         homebtn.setBackground(new java.awt.Color(0, 153, 153));
-        homebtn.setForeground(new java.awt.Color(44, 62, 80));
+        homebtn.setForeground(new java.awt.Color(0, 153, 153));
         homebtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 homebtnMouseClicked(evt);
@@ -168,7 +169,7 @@ public class user_dashboard extends javax.swing.JFrame {
         jPanel1.add(homebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, 40));
 
         billsbtn.setBackground(new java.awt.Color(0, 153, 153));
-        billsbtn.setForeground(new java.awt.Color(44, 62, 80));
+        billsbtn.setForeground(new java.awt.Color(0, 153, 153));
         billsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 billsbtnMouseClicked(evt);
@@ -192,7 +193,7 @@ public class user_dashboard extends javax.swing.JFrame {
         jPanel1.add(billsbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 40));
 
         profilebtn.setBackground(new java.awt.Color(0, 153, 153));
-        profilebtn.setForeground(new java.awt.Color(44, 62, 80));
+        profilebtn.setForeground(new java.awt.Color(0, 153, 153));
         profilebtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 profilebtnMouseClicked(evt);
@@ -216,7 +217,7 @@ public class user_dashboard extends javax.swing.JFrame {
         jPanel1.add(profilebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 40));
 
         settingsbtn.setBackground(new java.awt.Color(0, 153, 153));
-        settingsbtn.setForeground(new java.awt.Color(44, 62, 80));
+        settingsbtn.setForeground(new java.awt.Color(0, 153, 153));
         settingsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 settingsbtnMouseClicked(evt);
@@ -269,7 +270,7 @@ public class user_dashboard extends javax.swing.JFrame {
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 450, 230));
 
-        viewreceipt.setBackground(new java.awt.Color(44, 62, 80));
+        viewreceipt.setBackground(new java.awt.Color(255, 255, 255));
         viewreceipt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         viewreceipt.setText("Receipt");
         viewreceipt.setBorder(null);
@@ -280,7 +281,7 @@ public class user_dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(viewreceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 80, 30));
 
-        viewstatementofaccount.setBackground(new java.awt.Color(44, 62, 80));
+        viewstatementofaccount.setBackground(new java.awt.Color(255, 255, 255));
         viewstatementofaccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         viewstatementofaccount.setText("Statement");
         viewstatementofaccount.setBorder(null);
@@ -291,7 +292,7 @@ public class user_dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(viewstatementofaccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 80, 30));
 
-        viewpendingbills.setBackground(new java.awt.Color(44, 62, 80));
+        viewpendingbills.setBackground(new java.awt.Color(255, 255, 255));
         viewpendingbills.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         viewpendingbills.setText("Pending Bills");
         viewpendingbills.setBorder(null);
@@ -302,7 +303,7 @@ public class user_dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(viewpendingbills, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 90, 30));
 
-        viewpaidbills.setBackground(new java.awt.Color(44, 62, 80));
+        viewpaidbills.setBackground(new java.awt.Color(255, 255, 255));
         viewpaidbills.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         viewpaidbills.setText("Paid Bills");
         viewpaidbills.setBorder(null);
@@ -313,7 +314,7 @@ public class user_dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(viewpaidbills, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, 80, 30));
 
-        paymybills.setBackground(new java.awt.Color(44, 62, 80));
+        paymybills.setBackground(new java.awt.Color(255, 255, 255));
         paymybills.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         paymybills.setText("Pay Bill");
         paymybills.setBorder(null);

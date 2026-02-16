@@ -335,7 +335,11 @@ public class Bills extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutbtnMouseExited
 
     private void userbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userbtnMouseClicked
-       new admin_dashboard("Admin Name").setVisible(true);
+        try {
+            new admin_dashboard("Admin Name").setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Bills.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_userbtnMouseClicked
 

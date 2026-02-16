@@ -31,25 +31,23 @@ public class admin_dashboard extends javax.swing.JFrame {
     /**
      * Creates new form admin_dashboard
      */
-   public admin_dashboard(String loginName) {
+   public admin_dashboard(String loginName) throws SQLException {
     initComponents();
     this.name = loginName;
-  // I-set ang text sa label. 
-    // Kung gusto nimo nga ang 'welcometxt' label mismo ang naay name:
     welcometxt.setText("Welcome, " + loginName + "!");
-    
-    // O kung ang 'fName' label imong gamiton:
     fName.setText(loginName + "!");
     
-    // I-define ang colors
     hoverColor = new Color(52, 73, 94);
     defaultColor = new Color(44, 62, 80);
-    populateUserTable();
+    
+    // Siguroa nga naa kini diri
+    populateUserTable(); 
 }
-
     admin_dashboard() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
   
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,17 +100,18 @@ public class admin_dashboard extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 100));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("PowerPay");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 180, 40));
 
         logoutbtn.setBackground(new java.awt.Color(0, 153, 153));
-        logoutbtn.setForeground(new java.awt.Color(44, 62, 80));
+        logoutbtn.setForeground(new java.awt.Color(0, 153, 153));
         logoutbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 logoutbtnMouseClicked(evt);
@@ -136,7 +135,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         jPanel1.add(logoutbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, 40));
 
         userbtn.setBackground(new java.awt.Color(0, 153, 153));
-        userbtn.setForeground(new java.awt.Color(44, 62, 80));
+        userbtn.setForeground(new java.awt.Color(0, 153, 153));
         userbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 userbtnMouseClicked(evt);
@@ -165,7 +164,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         jPanel1.add(userbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, 40));
 
         billsbtn.setBackground(new java.awt.Color(0, 153, 153));
-        billsbtn.setForeground(new java.awt.Color(44, 62, 80));
+        billsbtn.setForeground(new java.awt.Color(0, 153, 153));
         billsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 billsbtnMouseClicked(evt);
@@ -189,7 +188,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         jPanel1.add(billsbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 40));
 
         paymentbtn.setBackground(new java.awt.Color(0, 153, 153));
-        paymentbtn.setForeground(new java.awt.Color(44, 62, 80));
+        paymentbtn.setForeground(new java.awt.Color(0, 153, 153));
         paymentbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 paymentbtnMouseClicked(evt);
@@ -218,7 +217,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         jPanel1.add(paymentbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 40));
 
         settingsbtn.setBackground(new java.awt.Color(0, 153, 153));
-        settingsbtn.setForeground(new java.awt.Color(44, 62, 80));
+        settingsbtn.setForeground(new java.awt.Color(0, 153, 153));
         settingsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 settingsbtnMouseClicked(evt);
@@ -247,7 +246,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         jPanel1.add(settingsbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, 40));
 
         logsbtn.setBackground(new java.awt.Color(0, 153, 153));
-        logsbtn.setForeground(new java.awt.Color(44, 62, 80));
+        logsbtn.setForeground(new java.awt.Color(0, 153, 153));
         logsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 logsbtnMouseClicked(evt);
@@ -309,7 +308,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(searchfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 330, 30));
 
-        searchbtn.setBackground(new java.awt.Color(44, 62, 80));
+        searchbtn.setBackground(new java.awt.Color(255, 255, 255));
         searchbtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         searchbtn.setText("Search");
         searchbtn.setBorder(null);
@@ -321,7 +320,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(searchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 110, 70, 30));
 
-        activateuser.setBackground(new java.awt.Color(44, 62, 80));
+        activateuser.setBackground(new java.awt.Color(255, 255, 255));
         activateuser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         activateuser.setText("Activate");
         activateuser.setBorder(null);
@@ -333,7 +332,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(activateuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 80, 30));
 
-        adduser.setBackground(new java.awt.Color(44, 62, 80));
+        adduser.setBackground(new java.awt.Color(255, 255, 255));
         adduser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         adduser.setText("Add");
         adduser.setBorder(null);
@@ -345,7 +344,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(adduser, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 80, 30));
 
-        edituser.setBackground(new java.awt.Color(44, 62, 80));
+        edituser.setBackground(new java.awt.Color(255, 255, 255));
         edituser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         edituser.setText("Edit");
         edituser.setBorder(null);
@@ -357,7 +356,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(edituser, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 80, 30));
 
-        deleteuser.setBackground(new java.awt.Color(44, 62, 80));
+        deleteuser.setBackground(new java.awt.Color(255, 255, 255));
         deleteuser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         deleteuser.setText("Delete");
         deleteuser.setBorder(null);
@@ -369,7 +368,7 @@ public class admin_dashboard extends javax.swing.JFrame {
         });
         jPanel3.add(deleteuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, 80, 30));
 
-        refresh.setBackground(new java.awt.Color(44, 62, 80));
+        refresh.setBackground(new java.awt.Color(255, 255, 255));
         refresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         refresh.setText("Refresh");
         refresh.setBorder(null);
@@ -467,34 +466,15 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_logsbtnMouseExited
 
     private void searchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbtnActionPerformed
-        // Search users by keyword in all columns and display in usertable
-        String searchText = searchfield.getText().trim();
-        if (searchText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter search text.");
-            return;
-        }
-        try {
-            String query = "SELECT id, firstname,lastname, username, role, status FROM users WHERE " +
-            "CAST(id AS CHAR) LIKE ? OR " +
-            "name LIKE ? OR " +
-            "username LIKE ? OR " +
-            "email LIKE ? OR " +
-            "role LIKE ? OR " +
-            "status LIKE ?";
-            Connection con = db.getConnection();
-            PreparedStatement pst = con.prepareStatement(query);
-            String likeText = "%" + searchText + "%";
-            pst.setString(1, likeText);
-            pst.setString(2, likeText);
-            pst.setString(3, likeText);
-            pst.setString(4, likeText);
-            pst.setString(5, likeText);
-            pst.setString(6, likeText);
-            ResultSet rs = pst.executeQuery();
-            usertable.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
-        } catch (java.sql.SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error searching users: " + e.getMessage());
-        }
+     String searchText = "%" + searchfield.getText().trim() + "%";
+    
+    // SQL query para sa pag-search sa tanang columns
+    String sql = "SELECT u_id, u_fname, u_lname, u_username, u_role, u_status FROM users WHERE "
+               + "u_fname LIKE ? OR u_lname LIKE ? OR u_username LIKE ? OR u_role LIKE ?";
+    
+    // Gamita ang displayData method gikan sa imong config class
+    db.displayData(sql, usertable, searchText, searchText, searchText, searchText);
+
     }//GEN-LAST:event_searchbtnActionPerformed
 
     private void activateuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activateuserActionPerformed
@@ -531,7 +511,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     int selectedRow = usertable.getSelectedRow();
     
     if (selectedRow == -1) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Palihog pili og user sa table.");
+        javax.swing.JOptionPane.showMessageDialog(this, "Please select user table.");
         return;
     }
     
@@ -551,12 +531,12 @@ public class admin_dashboard extends javax.swing.JFrame {
     int selectedRow = usertable.getSelectedRow();
     
     if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, "Palihog pili og user nga i-delete.");
+        JOptionPane.showMessageDialog(this, "Please select user you want to delete.");
         return;
     }
 
     int confirm = JOptionPane.showConfirmDialog(this, 
-            "Sigurado ka nga gusto nimo i-delete kini nga account?", 
+            "Are you sure you want to delete this account?", 
             "Confirm Delete", JOptionPane.YES_NO_OPTION);
     
     if (confirm == JOptionPane.YES_OPTION) {
@@ -602,7 +582,7 @@ public class admin_dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
-    populateUserTable();
+        populateUserTable();
     System.out.println("Table Refreshed!"); 
 
     }//GEN-LAST:event_refreshActionPerformed
@@ -658,14 +638,26 @@ public class admin_dashboard extends javax.swing.JFrame {
         System.out.println("Log: " + action);
     }
 
-    // 2. Limpyo nga populateUserTable (DILI DAPAT NI NAY THROW)
    private void populateUserTable() {
-       // Ang query mokuha sa tanang columns sa users table
-       String query = "SELECT u_id, u_firstname, u_lastname, u_username, u_role, u_status FROM users";
-       // Gamita ang 'db' nga object (imong config)
-       java.sql.ResultSet rs = db.getData(query);
-       // I-display sa table gamit ang rs2xml (DbUtils)
-       usertable.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
+    try {
+        // Query para sa SQLite
+        String query = "SELECT u_id, u_fname, u_lname, u_username, u_role, u_status FROM users";
+        
+        java.sql.ResultSet rs = db.getData(query);
+        
+        if (rs != null) {
+            // Mao ni ang mopa-display sa data
+            usertable.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
+            System.out.println("Data loaded successfully!");
+        } else {
+            System.out.println("ResultSet is null.");
+        }
+        
+    } catch (Exception e) {
+        // I-display ang actual error kung ngano dili makita ang table
+        JOptionPane.showMessageDialog(this, "Table Display Error: " + e.getMessage());
+        e.printStackTrace();
+    }
 }
 
     // Siguroa nga ang katapusan sa imong file kay ang Variables Declaration ra

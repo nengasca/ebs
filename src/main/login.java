@@ -24,6 +24,7 @@ public class login extends javax.swing.JFrame {
     public login() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,7 +112,7 @@ public class login extends javax.swing.JFrame {
         jLabel6.setText("Don't have an account?");
         bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, -1, -1));
 
-        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 440));
+        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

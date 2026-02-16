@@ -77,7 +77,7 @@ public class UserBills extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel5.setBackground(new java.awt.Color(244, 246, 249));
+        jPanel5.setBackground(new java.awt.Color(0, 204, 204));
         jPanel5.setPreferredSize(new java.awt.Dimension(900, 600));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -91,7 +91,7 @@ public class UserBills extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(mybillstable);
 
-        jPanel5.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 490, 250));
+        jPanel5.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 450, 250));
 
         searchfield.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
         searchfield.setPreferredSize(new java.awt.Dimension(350, 40));
@@ -100,9 +100,9 @@ public class UserBills extends javax.swing.JFrame {
                 searchfieldActionPerformed(evt);
             }
         });
-        jPanel5.add(searchfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 210, 30));
+        jPanel5.add(searchfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 350, 30));
 
-        searchbtn.setBackground(new java.awt.Color(44, 62, 80));
+        searchbtn.setBackground(new java.awt.Color(255, 255, 255));
         searchbtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         searchbtn.setText("Search");
         searchbtn.setBorder(null);
@@ -112,9 +112,9 @@ public class UserBills extends javax.swing.JFrame {
                 searchbtnActionPerformed(evt);
             }
         });
-        jPanel5.add(searchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, 80, 30));
+        jPanel5.add(searchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 110, 80, 30));
 
-        paymybills.setBackground(new java.awt.Color(44, 62, 80));
+        paymybills.setBackground(new java.awt.Color(255, 255, 255));
         paymybills.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         paymybills.setText("Pay Bill");
         paymybills.setBorder(null);
@@ -124,19 +124,19 @@ public class UserBills extends javax.swing.JFrame {
                 paymybillsActionPerformed(evt);
             }
         });
-        jPanel5.add(paymybills, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 60, 30));
+        jPanel5.add(paymybills, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 90, 30));
 
         welcometxt2.setBackground(new java.awt.Color(0, 0, 0));
         welcometxt2.setFont(new java.awt.Font("Lucida Calligraphy", 1, 24)); // NOI18N
         welcometxt2.setText("My Bills");
-        jPanel5.add(welcometxt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 150, 50));
+        jPanel5.add(welcometxt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 150, 50));
 
-        jPanel1.setBackground(new java.awt.Color(44, 62, 80));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 100));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        logoutbtn.setBackground(new java.awt.Color(44, 62, 80));
-        logoutbtn.setForeground(new java.awt.Color(44, 62, 80));
+        logoutbtn.setBackground(new java.awt.Color(0, 153, 153));
+        logoutbtn.setForeground(new java.awt.Color(0, 153, 153));
         logoutbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 logoutbtnMouseClicked(evt);
@@ -159,8 +159,8 @@ public class UserBills extends javax.swing.JFrame {
 
         jPanel1.add(logoutbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 40));
 
-        homebtn.setBackground(new java.awt.Color(44, 62, 80));
-        homebtn.setForeground(new java.awt.Color(44, 62, 80));
+        homebtn.setBackground(new java.awt.Color(0, 153, 153));
+        homebtn.setForeground(new java.awt.Color(0, 153, 153));
         homebtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 homebtnMouseClicked(evt);
@@ -183,8 +183,8 @@ public class UserBills extends javax.swing.JFrame {
 
         jPanel1.add(homebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, 40));
 
-        billsbtn.setBackground(new java.awt.Color(44, 62, 80));
-        billsbtn.setForeground(new java.awt.Color(44, 62, 80));
+        billsbtn.setBackground(new java.awt.Color(0, 153, 153));
+        billsbtn.setForeground(new java.awt.Color(0, 153, 153));
         billsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 billsbtnMouseClicked(evt);
@@ -207,8 +207,8 @@ public class UserBills extends javax.swing.JFrame {
 
         jPanel1.add(billsbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 40));
 
-        profilebtn.setBackground(new java.awt.Color(44, 62, 80));
-        profilebtn.setForeground(new java.awt.Color(44, 62, 80));
+        profilebtn.setBackground(new java.awt.Color(0, 153, 153));
+        profilebtn.setForeground(new java.awt.Color(0, 153, 153));
         profilebtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 profilebtnMouseClicked(evt);
@@ -231,8 +231,8 @@ public class UserBills extends javax.swing.JFrame {
 
         jPanel1.add(profilebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 40));
 
-        settingsbtn.setBackground(new java.awt.Color(44, 62, 80));
-        settingsbtn.setForeground(new java.awt.Color(44, 62, 80));
+        settingsbtn.setBackground(new java.awt.Color(0, 153, 153));
+        settingsbtn.setForeground(new java.awt.Color(0, 153, 153));
         settingsbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 settingsbtnMouseClicked(evt);
@@ -261,9 +261,9 @@ public class UserBills extends javax.swing.JFrame {
         jLabel2.setText("PowerPay");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 30, 220, -1));
 
-        jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
+        jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 200, 460));
 
-        viewpaidbills.setBackground(new java.awt.Color(44, 62, 80));
+        viewpaidbills.setBackground(new java.awt.Color(255, 255, 255));
         viewpaidbills.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         viewpaidbills.setText("Paid Bills");
         viewpaidbills.setBorder(null);
@@ -272,9 +272,9 @@ public class UserBills extends javax.swing.JFrame {
                 viewpaidbillsActionPerformed(evt);
             }
         });
-        jPanel5.add(viewpaidbills, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 80, 30));
+        jPanel5.add(viewpaidbills, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 90, 30));
 
-        viewpendingbills.setBackground(new java.awt.Color(44, 62, 80));
+        viewpendingbills.setBackground(new java.awt.Color(255, 255, 255));
         viewpendingbills.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         viewpendingbills.setText("Pending Bills");
         viewpendingbills.setBorder(null);
@@ -283,9 +283,9 @@ public class UserBills extends javax.swing.JFrame {
                 viewpendingbillsActionPerformed(evt);
             }
         });
-        jPanel5.add(viewpendingbills, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 100, 30));
+        jPanel5.add(viewpendingbills, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 90, 30));
 
-        viewstatementofaccount.setBackground(new java.awt.Color(44, 62, 80));
+        viewstatementofaccount.setBackground(new java.awt.Color(255, 255, 255));
         viewstatementofaccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         viewstatementofaccount.setText("Statement");
         viewstatementofaccount.setBorder(null);
@@ -294,9 +294,9 @@ public class UserBills extends javax.swing.JFrame {
                 viewstatementofaccountActionPerformed(evt);
             }
         });
-        jPanel5.add(viewstatementofaccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 80, 30));
+        jPanel5.add(viewstatementofaccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 90, 30));
 
-        viewreceipt.setBackground(new java.awt.Color(44, 62, 80));
+        viewreceipt.setBackground(new java.awt.Color(255, 255, 255));
         viewreceipt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         viewreceipt.setText("Receipt");
         viewreceipt.setBorder(null);
@@ -305,24 +305,17 @@ public class UserBills extends javax.swing.JFrame {
                 viewreceiptActionPerformed(evt);
             }
         });
-        jPanel5.add(viewreceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 70, 30));
+        jPanel5.add(viewreceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 90, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 920, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 783, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 455, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 455, Short.MAX_VALUE))
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 455, Short.MAX_VALUE)
         );
 
         pack();

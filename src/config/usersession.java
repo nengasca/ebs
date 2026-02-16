@@ -13,7 +13,7 @@ public class usersession {
     private String accnum;
 
     // Private constructor aron dili ma-instantiate sa gawas
-    private usersession() {}
+    usersession() {}
 
     // Singleton Pattern: Kini ang tawgon nimo pirme (usersession.getInstance())
     public static synchronized usersession getInstance() {

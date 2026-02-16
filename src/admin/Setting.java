@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import main.login;
 import payment.Payment;
@@ -430,9 +432,13 @@ public class Setting extends javax.swing.JFrame {
     private void userbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userbtnMouseClicked
    String currentName = config.getName(); 
 
-    // I-pasa ang name sa dashboard
-    // Siguroa nga ang admin_dashboard sa admin package nagdawat og String
-    new admin.admin_dashboard(currentName).setVisible(true);
+         try {
+             // I-pasa ang name sa dashboard
+             // Siguroa nga ang admin_dashboard sa admin package nagdawat og String
+             new admin.admin_dashboard(currentName).setVisible(true);
+         } catch (SQLException ex) {
+             Logger.getLogger(Setting.class.getName()).log(Level.SEVERE, null, ex);
+         }
     this.dispose();
 
 
